@@ -1,4 +1,10 @@
-#if !__cplusplus
+#ifndef UTILS_SWAP_HPP
+#define UTILS_SWAP_HPP
+
+#if __cplusplus
+
+
+#else
 
 void swap_int(int *a, int *b) {
     int temp = *a;
@@ -36,5 +42,7 @@ void swap_unsigned(unsigned *a, unsigned *b) {
     *b = temp;
 }
 
-#else
 #endif
+
+
+#endif //UTILS_SWAP_HPP

@@ -1,16 +1,10 @@
-#pragma once
+#ifndef UTILS_STRING_HPP
+#define UTILS_STRING_HPP
+
+#if !__cplusplus
 
 #include "swap.hpp"
-
-#if !__cplusplus
-
 #include <string.h>
-
-#else
-
-#endif
-
-#if !__cplusplus
 
 void reverse(char *s) {
     unsigned long len = strlen(s);
@@ -22,3 +16,5 @@ void reverse(char *s) {
 #else
 
 #endif
+
+#endif //UTILS_STRING_HPP
