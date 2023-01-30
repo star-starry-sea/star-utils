@@ -45,9 +45,7 @@ public:
 
     class Object {
     public:
-        Object() {
-            Py_XINCREF(this->object);
-        }
+        Object() = default;
 
         Object(PyObject *obj) { // NOLINT(google-explicit-constructor)
             this->object = obj;
