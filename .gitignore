@@ -1,0 +1,7 @@
+/cmake-build-debug
+/cmake-build-release
+/CMakeLists.txt
+/test.cpp
+/.idea
+/venv
+/test
