@@ -53,18 +53,19 @@ public:
 
         Object &operator=(PyObject *obj) {
             this->object = obj;
+            return *this;
         }
 
-        ~Object() {
-            Py_XDECREF(this->object);
+        PyObject *operator*() {
+            return this->object;
         }
 
         PyObject *get() {
             return this->object;
         }
 
-        PyObject *operator*() {
-            return this->object;
+         ~Object() {
+            Py_XDECREF(this->object);
         }
 
     private:
@@ -123,27 +124,24 @@ public:
 
     template<typename ...Args>
     inline PyObject *call_function(PyObject *func, const char *format = nullptr, Args ...args) {
-        if (!func || !PyCallable_Check(func)) {
-            throw std::exception("unable to call function");
-        }
-
         return PyObject_CallFunction(func, format, args...);
     }
 
-    template<typename ...Args>
-    inline PyObject *call_function_in_module(const char *module_name, const char *function_name, const char* format = nullptr, Args ...args) { // NOLINT(readability-convert-member-functions-to-static)
-        Object py_module = this->import_module(module_name);
-        Object py_function = this->get_attr_string(*py_module, function_name);
-        PyObject * result = this->call_function(*py_function, format, args...);
-        return result;
+    inline PyObject *call_object(PyObject * py_object, PyObject * py_args = nullptr) { // NOLINT(readability-convert-member-functions-to-static)
+        return PyObject_CallObject(py_object, py_args);
     }
 
     template<typename ...Args>
-    inline void del(Args ...args) { // NOLINT(readability-convert-member-functions-to-static)
-        auto delete_args = [](auto &arg) {
+    inline PyObject *call_method(PyObject * object, const char * method_name, const char * format = nullptr, Args ...args) {
+        return PyObject_CallMethod(object, method_name, format, args...);
+    }
+
+    template<typename ...Args>
+    inline void reduce_reference_count(Args ...args) { // NOLINT(readability-convert-member-functions-to-static)
+        auto reduce = [](auto &arg) {
             Py_XDECREF(arg);
         };
-        (delete_args(args), ...);
+        (reduce(args), ...);
     }
 
     inline void print_error() { // NOLINT(readability-convert-member-functions-to-static)
