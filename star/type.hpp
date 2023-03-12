@@ -5,7 +5,7 @@
 #include <typeinfo>
 
 template<typename T>
-constexpr inline const char *get_type(T value) {
+constexpr inline const char *get_type(T value) noexcept {
     return typeid(value).name();
 }
 

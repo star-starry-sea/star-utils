@@ -5,7 +5,7 @@
 #include <filesystem>
 
 namespace star::filesystem {
-    inline bool remove(const std::filesystem::path &path) {
+    inline bool remove(const std::filesystem::path &path) noexcept {
         std::error_code temp_ec{};
         bool result = std::filesystem::remove(path, temp_ec);
         return result;
