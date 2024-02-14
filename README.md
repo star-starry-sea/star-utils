@@ -2,6 +2,6 @@
 ## name: star
 ## environment
 * system: Windows
-* compiler: VC
+* compiler: VC++
 * C++ version: C++ 20
 ## language: C++
