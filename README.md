@@ -1,7 +1,6 @@
 # C++ utils
-## name: star
+## name: star-utils
 ## environment
 * system: Windows
-* compiler: VC++
 * C++ version: C++ 20
 ## language: C++
